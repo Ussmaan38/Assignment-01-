@@ -1,0 +1,134 @@
+[20/11, 1:58 pm] Usman: <?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".MainActivity">
+
+    <!-- Team 1 Score -->
+    <TextView
+        android:id="@+id/team1_score"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="0"
+        android:textSize="40sp"
+        android:layout_marginTop="100dp"
+        android:layout_centerHorizontal="true"
+        android:gravity="center"
+        android:textColor="@android:color/black"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <!-- Increment Button for Team 1 -->
+    <Button
+        android:id="@+id/team1_add_button"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Add 1 to Team 1"
+        app:layout_constraintTop_toBottomOf="@id/team1_score"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        android:layout_marginTop="30dp" />
+
+    <!-- Team 2 Score -->
+    <TextView
+        android:id="@+id/team2_score"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="0"
+        android:textSize="40sp"
+        android:layout_marginTop="200dp"
+        android:layout_centerHorizontal="true"
+        android:gravity="center"
+        android:textColor="@android:color/black"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <!-- Increment Button for Team 2 -->
+    <Button
+        android:id="@+id/team2_add_button"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Add 1 to Team 2"
+        app:layout_constraintTop_toBottomOf="@id/team2_score"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        android:layout_marginTop="30dp" />
+
+    <!-- Reset Button -->
+    <Button
+        android:id="@+id/reset_button"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Reset Scores"
+        app:layout_constraintTop_toBottomOf="@id/team2_add_button"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        android:layout_marginTop="40dp" />
+</androidx.constraintlayout.widget.ConstraintLayout>
+[20/11, 1:58 pm] Usman: package com.example.basketballscorecounter;
+
+import android.os.Bundle;
+import android.view.View;
+import android.widget.Button;
+import android.widget.TextView;
+import androidx.appcompat.app.AppCompatActivity;
+
+public class MainActivity extends AppCompatActivity {
+
+    private int team1Score = 0;
+    private int team2Score = 0;
+
+    private TextView team1ScoreText;
+    private TextView team2ScoreText;
+    private Button team1AddButton;
+    private Button team2AddButton;
+    private Button resetButton;
+
+    @Override
+    protected void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        setContentView(R.layout.activity_main);
+
+        // Initialize views
+        team1ScoreText = findViewById(R.id.team1_score);
+        team2ScoreText = findViewById(R.id.team2_score);
+        team1AddButton = findViewById(R.id.team1_add_button);
+        team2AddButton = findViewById(R.id.team2_add_button);
+        resetButton = findViewById(R.id.reset_button);
+
+        // Set click listeners for buttons
+        team1AddButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                team1Score++;
+                updateScores();
+            }
+        });
+
+        team2AddButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                team2Score++;
+                updateScores();
+            }
+        });
+
+        resetButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                team1Score = 0;
+                team2Score = 0;
+                updateScores();
+            }
+        });
+    }
+
+    private void updateScores() {
+        team1ScoreText.setText(String.valueOf(team1Score));
+        team2ScoreText.setText(String.valueOf(team2Score));
+    }
+}
